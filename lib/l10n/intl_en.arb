@@ -1,0 +1,11 @@
+{
+    "@@locale": "en",
+    "hello": "hello, {name}",
+    "@hello": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    }
+}
