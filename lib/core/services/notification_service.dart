@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:rountiner/core/consts.dart';
+import 'package:http/http.dart' as http;
 
 class NotificationService {
   NotificationService._();
@@ -21,23 +22,28 @@ class NotificationService {
   String? _token;
   String? get token => _token;
 
-  final _notificationDetails = NotificationDetails(
-    android: AndroidNotificationDetails(
-      kMainAndroidChannel.id,
-      kMainAndroidChannel.name,
-      channelDescription: kMainAndroidChannel.description,
-      importance: Importance.max,
-      priority: Priority.high,
-      playSound: true,
-      enableVibration: true,
-      icon: kMainAndroidNotificationIcon,
-    ),
-    iOS: DarwinNotificationDetails(
-      presentAlert: true,
-      presentBadge: true,
-      presentSound: true,
-    ),
-  );
+  NotificationDetails _getNotificationDetails({
+    BigPictureStyleInformation? bigPictureStyleInformation,
+  }) {
+    return NotificationDetails(
+      android: AndroidNotificationDetails(
+        kMainAndroidChannel.id,
+        kMainAndroidChannel.name,
+        channelDescription: kMainAndroidChannel.description,
+        importance: Importance.max,
+        priority: Priority.high,
+        playSound: true,
+        enableVibration: true,
+        icon: kMainAndroidNotificationIcon,
+        styleInformation: bigPictureStyleInformation,
+      ),
+      iOS: DarwinNotificationDetails(
+        presentAlert: true,
+        presentBadge: true,
+        presentSound: true,
+      ),
+    );
+  }
 
   Future<void> init() async {
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
@@ -117,18 +123,33 @@ class NotificationService {
       return;
     }
 
-    final imageUrl = message.data['image'];
-    
-    if (imageUrl != null && imageUrl.isNotEmpty) {
-      
+    final imageUrl = notification.android?.imageUrl;
+
+    BigPictureStyleInformation? bigPictureStyleInformation;
+    if (imageUrl != null) {
+      try {
+        final response = await http.get(Uri.parse(imageUrl));
+        if (response.statusCode == 200) {
+          final byteArray = response.bodyBytes;
+          bigPictureStyleInformation = BigPictureStyleInformation(
+            ByteArrayAndroidBitmap(byteArray),
+            largeIcon: ByteArrayAndroidBitmap(byteArray),
+            contentTitle: notification.title,
+            summaryText: notification.body,
+          );
+        }
+      } catch (e) {
+        log('Failed to fetch image: $e');
+      }
     }
-    
 
     await _localNotifications.show(
       notification.hashCode,
       notification.title,
       notification.body,
-      _notificationDetails,
+      _getNotificationDetails(
+        bigPictureStyleInformation: bigPictureStyleInformation,
+      ),
       payload: message.data.toString(),
     );
   }
@@ -167,7 +188,7 @@ class NotificationService {
       id,
       title,
       body,
-      _notificationDetails,
+      _getNotificationDetails(),
       payload: payload,
     );
   }
