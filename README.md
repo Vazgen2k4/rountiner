@@ -64,13 +64,12 @@ The app is in its early stage, with the following features already in place:
 ## Roadmap 🏗
 
 ✅ Habit tracking basics  
-✅ User authentication  
 ✅ Push notifications  
 ✅ Localization  
+🔄 User authentication  
 🔄 Friend system (in progress)  
 🔄 Challenge creation & participation  
 🔄 Custom themes support  
-🔄 Push notifications & reminders
 
 ## Contribution 🤝
 
