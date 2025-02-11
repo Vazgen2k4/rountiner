@@ -1,6 +1,6 @@
 # Rountiner
 
-![App Logo](dco/rountiner.png)
+![App Logo](doc/rountiner.png)
 
 
 Rountiner is a **habit tracker** designed to help users build good habits, break bad ones, and stay motivated through **social challenges** and **friendly competition**.
