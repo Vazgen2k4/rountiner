@@ -1,5 +1,8 @@
 # Rountiner
 
+![App Logo](dco/rountiner.png)
+
+
 Rountiner is a **habit tracker** designed to help users build good habits, break bad ones, and stay motivated through **social challenges** and **friendly competition**.
 
 The app allows users to set up habits, track their progress, compete with friends, create custom challenges, and stay on track with personalized reminders. With Firebase integration, push notifications, and localization support, Rountiner provides a rich and engaging experience for building lasting habits.
