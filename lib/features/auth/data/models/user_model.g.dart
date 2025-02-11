@@ -16,7 +16,7 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       email: json['email'] as String,
       photoUrl: json['photo_url'] as String,
       goals: (json['goals'] as List<dynamic>)
-          .map((e) => e as Map<String, dynamic>)
+          .map((e) => GoalModel.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -26,6 +26,6 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
       'updated_at': BaseModel.dateTimeToJson(instance.updatedAt),
       'name': instance.name,
       'email': instance.email,
-      'goals': instance.goals,
+      'goals': UserModel._goalsToJson(instance.goals),
       'photo_url': instance.photoUrl,
     };

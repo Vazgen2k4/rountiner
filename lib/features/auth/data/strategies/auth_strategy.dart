@@ -1,7 +1,7 @@
-import 'package:rountiner/features/auth/domain/entities/user_entity.dart';
+import 'package:rountiner/features/auth/data/models/user_model.dart';
 
 abstract interface class AuthStrategy {
-  Future<UserEntity?> signIn();
-  Future<UserEntity?> signUp();
+  Future<UserModel?> signIn();
+  Future<UserModel?> signUp();
   Future<void> signOut();
 }

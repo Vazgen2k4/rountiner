@@ -14,7 +14,7 @@ GoalModel _$GoalModelFromJson(Map<String, dynamic> json) => GoalModel(
           BaseModel.dateTimeFromJson((json['updated_at'] as num).toInt()),
       type: json['type'] as String,
       habits: (json['habits'] as List<dynamic>)
-          .map((e) => e as Map<String, dynamic>)
+          .map((e) => HabitModel.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -23,5 +23,5 @@ Map<String, dynamic> _$GoalModelToJson(GoalModel instance) => <String, dynamic>{
       'created_at': BaseModel.dateTimeToJson(instance.createdAt),
       'updated_at': BaseModel.dateTimeToJson(instance.updatedAt),
       'type': instance.type,
-      'habits': instance.habits,
+      'habits': GoalModel._habitsToJson(instance.habits),
     };

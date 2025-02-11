@@ -1,3 +1,4 @@
+import 'package:rountiner/features/auth/data/models/user_model.dart';
 import 'package:rountiner/features/auth/domain/entities/user_entity.dart';
 import 'package:rountiner/features/auth/domain/repositories/auth_repository.dart';
 import 'package:rountiner/features/auth/data/strategies/auth_strategy.dart';
@@ -7,7 +8,7 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl(this.authStrategy);
 
   @override
-  Future<UserEntity?> signIn() async {
+  Future<UserModel?> signIn() async {
     return await authStrategy.signIn();
   }
 

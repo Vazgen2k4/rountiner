@@ -2,9 +2,10 @@ import 'package:flutter/services.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:rountiner/core/model/base_model.dart';
 import 'package:rountiner/core/model/i_base_model.dart';
+import 'package:rountiner/core/extensions/color_extension.dart';
 import 'package:rountiner/features/auth/domain/entities/habit_entity.dart';
 
-// part 'habit_model.g.dart';
+part 'habit_model.g.dart';
 
 @JsonSerializable()
 class HabitModel extends BaseModel implements IBaseModel<HabitEntity> {
@@ -13,11 +14,20 @@ class HabitModel extends BaseModel implements IBaseModel<HabitEntity> {
   final HabitEntityStatus status;
   final HabitEntityPriority priority;
   final HabitEntityIcon icon;
-  
-  // @JsonKey(fromJson: _colorFromJson, toJson: _colorToJson,)
+
+  @JsonKey(
+    fromJson: _colorFromJson,
+    toJson: _colorToJson,
+  )
   final Color color;
 
-  
+  static Color _colorFromJson(Map<String, dynamic> json) {
+    return ColorExtension.fromHex(json['color']);
+  }
+
+  static String _colorToJson(Color color) {
+    return color.toHex();
+  }
 
   const HabitModel({
     required super.id,
@@ -43,8 +53,8 @@ class HabitModel extends BaseModel implements IBaseModel<HabitEntity> {
     throw UnimplementedError();
   }
 
-  // factory HabitModel.fromJson(Map<String, dynamic> json) =>
-  //     _$HabitModelFromJson(json);
+  factory HabitModel.fromJson(Map<String, dynamic> json) =>
+      _$HabitModelFromJson(json);
 
-  // Map<String, dynamic> toJson() => _$HabitModelToJson(this);
+  Map<String, dynamic> toJson() => _$HabitModelToJson(this);
 }
