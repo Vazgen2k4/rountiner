@@ -9,8 +9,16 @@ extension ColorExtension on Color {
   static Color fromHex(String hex) {
     String onlyValues = hex.replaceAll('#', '');
     if (onlyValues.length == 6) {
-      onlyValues = 'FF$onlyValues'; // Применяем 255 для альфа, если её нет
+      onlyValues = 'FF$onlyValues';
     }
     return Color(int.parse('0x$onlyValues'));
+  }
+
+  Color copyWithOpacity(double opacity) {
+    if (opacity < 0 || opacity > 1) {
+      throw Exception('Opacity must be between 0 and 1');
+    }
+
+    return withAlpha((opacity * 255).round());
   }
 }

@@ -68,7 +68,19 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
+    - assets/fonts/
     - .env
+    
+  fonts:
+    - family: AirbnbCereal
+      fonts:
+        - asset: assets/fonts/AirbnbCereal-Medium.otf
+          weight: 500 # Medium
+        - asset: assets/fonts/AirbnbCereal-Normal.otf
+          weight: 400 # Book (обычный)
+        - asset: assets/fonts/AirbnbCereal-Bold.otf
+          weight: 700 # Bold (если есть)
+
     
 flutter_intl:
   enabled: true
