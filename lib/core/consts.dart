@@ -14,7 +14,8 @@ const kMainAndroidChannel = AndroidNotificationChannel(
   'Main Channel',
   description: 'Основной канал уведомлений для Android',
   importance: Importance.max,
-
 );
 
+
+const String kUsersFirestorePath = 'users';
 

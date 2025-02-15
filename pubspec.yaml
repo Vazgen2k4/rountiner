@@ -46,9 +46,15 @@ dependencies:
   firebase_analytics: ^11.4.2
   flutter_local_notifications: ^18.0.1
   http: ^1.3.0
+  dartz: ^0.10.1
+  flutter_facebook_auth: ^6.0.4
+  facebook_auth_desktop: ^1.0.3
 
 dev_dependencies:
   flutter_test:
+    sdk: flutter
+    
+  integration_test:
     sdk: flutter
 
   build_runner: ^2.4.14
@@ -57,13 +63,25 @@ dev_dependencies:
   flutter_lints: ^5.0.0
   json_serializable: ^6.9.3
 
-flutter:
+flutter:  
   uses-material-design: true
-
+  
   assets:
     - assets/icons/
     - assets/images/
+    - assets/fonts/
     - .env
+    
+  fonts:
+    - family: AirbnbCereal
+      fonts:
+        - asset: assets/fonts/AirbnbCereal-Medium.otf
+          weight: 500 # Medium
+        - asset: assets/fonts/AirbnbCereal-Normal.otf
+          weight: 400 # Book (обычный)
+        - asset: assets/fonts/AirbnbCereal-Bold.otf
+          weight: 700 # Bold (если есть)
+
     
 flutter_intl:
   enabled: true
