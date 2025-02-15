@@ -1,29 +1,29 @@
 import 'package:rountiner/features/auth/data/models/user_model.dart';
-import 'package:rountiner/features/auth/domain/entities/user_entity.dart';
+import 'package:rountiner/features/auth/data/strategies/auth/auth_strategy.dart';
 import 'package:rountiner/features/auth/domain/repositories/auth_repository.dart';
-import 'package:rountiner/features/auth/data/strategies/auth_strategy.dart';
+import 'package:rountiner/features/auth/domain/repositories/user_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  AuthStrategy authStrategy;
-  AuthRepositoryImpl(this.authStrategy);
+  final UserRepository userRepository;
+  AuthStrategy _strategy;
+
+  AuthRepositoryImpl({
+    required AuthStrategy strategy,
+    required this.userRepository,
+  }) : _strategy = strategy;
 
   @override
-  Future<UserModel?> signIn() async {
-    return await authStrategy.signIn();
+  Future<void> signOut() {
+    return _strategy.signOut();
   }
 
   @override
-  Future<void> signOut() async {
-    await authStrategy.signOut();
+  Future<UserModel?> signIn() {
+    return _strategy.signIn(userRepository);
   }
 
   @override
-  Future<void> signUp() {
-    throw UnimplementedError();
+  void setAuthStrategy(AuthStrategy strategy) {
+    _strategy = strategy;
   }
-  
-  void setStrategy(AuthStrategy strategy) {
-    authStrategy = strategy;
-  }
-  
 }
